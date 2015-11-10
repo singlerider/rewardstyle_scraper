@@ -50,4 +50,4 @@ or
 
 ## To-do
 
-Solve error message from DELETE request operation - it still goes through fine
+Improve analytics module
