@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# TODO A lot. force follow and scrape redirects
-# Once I pass the redirect, I will scrape all advertisers pages and provide
-# analytics with my existing analytics portion that runs at the end
+# TODO : fix analytics module
 
 from config import *
 from lib.libs import *
@@ -61,9 +59,6 @@ def text_cleaner(stripped_advertiser, website):
     return text
 
 
-#sample = text_cleaner("http://www.indeed.com/viewjob?jk=5505e59f8e5a32a4&q=%22data+scientist%22&tk=19ftfgsmj19ti0l3&from=web&advn=1855944161169178&sjdu=QwrRXKrqZ3CNX5W-O9jEvWC1RT2wMYkGnZrqGdrncbKqQ7uwTLXzT1_ME9WQ4M-7om7mrHAlvyJT8cA_14IV5w&pub=pub-indeed")
-#print sample[:20] # Just show the first 20 words
-
 def scrape():
     successful_scrapes = 0
     for i in range(len(advertisers)):
@@ -104,7 +99,6 @@ def scrape():
     #fashion_dict["Zipper"] = 3
     #fashion_dict["Wrinkle"] = 1
     intermediate_total_skills = fashion_dict
-    #print intermediate_total_skills
     overall_total_skills = {}
     for key in intermediate_total_skills:
         if intermediate_total_skills[key] > 0:
