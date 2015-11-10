@@ -55,7 +55,13 @@ def text_cleaner(stripped_advertiser, website):
     text = text.lower().split()
     stop_words = set(stopwords.words("english"))
     text = [w for w in text if not w in stop_words]
+    fashion_dict["Wrinkle"] = 1
     text = list(set(text))
+    for word in text:
+        if word not in fashion_dict:
+            fashion_dict[word] = 1
+        else:
+            fashion_dict[word] += 1
     return text
 
 
@@ -96,8 +102,6 @@ def scrape():
     print "Done with collecting the job postings!"
     print "There were", successful_scrapes, "scrapes performed successfully."
 
-    #fashion_dict["Zipper"] = 3
-    #fashion_dict["Wrinkle"] = 1
     intermediate_total_skills = fashion_dict
     overall_total_skills = {}
     for key in intermediate_total_skills:
@@ -105,7 +109,12 @@ def scrape():
             overall_total_skills[key] = intermediate_total_skills[key]
 
     final_frame = pd.DataFrame(overall_total_skills.items(), columns = ["Term", "NumPostings"])
-    final_frame.NumPostings = (final_frame.NumPostings)*100/(len(advertisers))
+    pd.set_option('display.height', 500000)
+    pd.set_option('display.max_rows', 500000)
+    final_frame.NumPostings = ((final_frame.NumPostings)*100)/successful_scrapes
     final_frame.sort_values(by= "NumPostings", ascending = False, inplace = True)
+    import time
+    with open('sites/word_freq_{}.txt'.format(int(time.time())), 'w') as f:
+        f.write(str(final_frame))
 
     return final_frame # End of the function
