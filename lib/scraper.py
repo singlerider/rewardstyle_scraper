@@ -38,7 +38,7 @@ def text_cleaner(stripped_advertiser, website): # clean up html and read words
     soup_obj = BeautifulSoup(website, "html.parser")
     for script in soup_obj(["script", "style"]): # get rid of that nasty javascript
         script.extract() # Remove these two elements from the BS4 object
-    text = soup_obj.get_text() # we convert text in place several times coming up
+    text = soup_obj.get_text().replace(".", "") # we convert text in place several times coming up
     with open('sites/{}.html'.format(stripped_advertiser.lower()), 'w') as f:
         f.write(soup_obj.encode("utf-8")) #write html out to file
     lines = (line.strip() for line in text.splitlines()) # break into lines
